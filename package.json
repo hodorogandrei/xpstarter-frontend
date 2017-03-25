@@ -1,0 +1,38 @@
+{
+  "name": "xpstarter",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "express": "~4.14.1",
+    "gulp-bower": "^0.0.13",
+    "gulp-concat-multi": "^1.0.0",
+    "jade": "~1.11.0",
+    "morgan": "~1.7.0",
+    "request": "^2.81.0",
+    "serve-favicon": "~2.3.2"
+  },
+  "devDependencies": {
+    "autoprefixer-core": "^3.1.1",
+    "browser-sync": "^1.5.4",
+    "del": "^0.1.3",
+    "gulp": "^3.8.8",
+    "gulp-debug": "^2.1.2",
+    "gulp-imagemin": "^1.0.1",
+    "gulp-jade": "^0.8.0",
+    "gulp-jshint": "^1.8.5",
+    "gulp-less": "^1.3.6",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-postcss": "^2.0.0",
+    "gulp-ruby-sass": "^0.4.3",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-util": "^3.0.1",
+    "http": "0.0.0"
+  }
+}
