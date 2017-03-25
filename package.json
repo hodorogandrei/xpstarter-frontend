@@ -33,6 +33,7 @@
     "gulp-ruby-sass": "^0.4.3",
     "gulp-sourcemaps": "^2.4.1",
     "gulp-util": "^3.0.1",
-    "http": "0.0.0"
+    "http": "0.0.0",
+    "moment": "^2.18.1"
   }
 }

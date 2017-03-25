@@ -1,0 +1,43 @@
+extends layout
+
+block content
+    header.site--header
+        include partials/sitenav
+        article.site--header-content
+            .site--header-content--background
+            h1 Kids for Playgrounds
+            h4
+                | 83,4% -
+                span.normal 10.436 / 12.500 GBP
+            h4 by Andrei Hodorog
+    include partials/categories
+    section.site-section
+        h1.site-section--title.ARTS Projects people loved
+        .site--itemlist
+            if campaigns
+                each campaign in campaigns
+                    article.site--project(class=campaign.category)
+                        header
+                            img(src="images/stock2.jpg")
+                            .badge
+                                .mdi.mdi-heart
+                        footer
+                            h1 #{campaign.name}
+                            h4(data-item="campaign-category") #{campaign.category}
+                            h4
+                                span.mdi.mdi-map-marker
+                                | Cardiff
+                            h4
+                                span.mdi.mdi-clock-in(data-item="started-on")
+                                | #{campaign.startedOn}
+                                &nbsp;&nbsp;
+                                span.mdi.mdi-clock-out(data-item="expires-on")
+                                | #{campaign.expiresOn}
+                            p #{campaign.description}
+                            .site--progressbar
+                                .site--progressbar-percent #{campaign.percentage}%
+                                .site--progressbar-container
+                                    .site--progressbar-progress(style="width: #{campaign.percentage}%")
+                            p &pound;#{campaign.current} / &pound;#{campaign.target} -
+                                span(data-item="time-left")
+                                    .time-left

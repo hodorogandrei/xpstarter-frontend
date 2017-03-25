@@ -27,7 +27,7 @@ router.get('/campaigns/:id?', function(req, res, next) {
 			if (!error && response.statusCode === 200) {
 				body = JSON.parse(body)._embedded.campaigns;
 				body = JSON.stringify(body);
-				res.render('artsandculture', {campaigns: JSON.parse(body) });
+				res.render('campaigns', {campaigns: JSON.parse(body) });
 			} else {
 				res.json(error);
 			}
