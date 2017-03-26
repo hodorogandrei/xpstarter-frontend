@@ -4,7 +4,8 @@
   "dependencies": {
     "mdi": "^1.7.22",
     "breakpoint-sass": "^2.7.0",
-    "bootstrap-sass": "^3.3.7"
+    "bootstrap-sass": "^3.3.7",
+    "moment": "^2.18.1"
   },
   "description": "",
   "main": "",

@@ -107,7 +107,8 @@ gulp.task('resources', ['images', 'fonts']);
 gulp.task('libraries', function() {
     return concat({
         "libraries.js": [
-            'bower_components/jquery/dist/jquery.min.js'
+            'bower_components/jquery/dist/jquery.min.js',
+            'bower_components/moment/min/moment.min.js'
         ]
     })
         .on('error', $.util.log)
