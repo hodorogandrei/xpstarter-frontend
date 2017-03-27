@@ -1,4 +1,5 @@
 extends layout
+include mixins/campaign.jade
 
 block content
     header.site--header
@@ -16,27 +17,4 @@ block content
         .site--itemlist
             if campaigns
                 each campaign in campaigns
-                    article.site--project(class=campaign.category, data-item="campaign")
-                        header
-                            img(src="/static/images/stock2.jpg")
-                            .badge
-                                .mdi.mdi-heart
-                        footer
-                            h1 #{campaign.name}
-                            h4(data-item="campaign-category") #{campaign.category}
-                            h4
-                                span.mdi.mdi-map-marker
-                                | Cardiff
-                            h4
-                                span.mdi.mdi-clock-in
-                                span(data-type="iso-date", data-item="campaign-date", data-datetype="start", data-original-date=campaign.startedOn)
-                                &nbsp; &nbsp;
-                                span.mdi.mdi-clock-out
-                                span(data-type="iso-date", data-item="campaign-date", data-datetype="finish", data-original-date=campaign.expiresOn)
-                            p #{campaign.description}
-                            .site--progressbar
-                                .site--progressbar-percent #{campaign.percentage}%
-                                .site--progressbar-container
-                                    .site--progressbar-progress(style="width: #{campaign.percentage}%")
-                            p &pound;#{campaign.current} / &pound;#{campaign.target} - &nbsp;
-                                span(data-item="time-left")
+                    +campaign(campaign)
