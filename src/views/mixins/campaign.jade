@@ -13,9 +13,9 @@ mixin campaign(campaign)
             h4
                 span.mdi.mdi-clock-in
                 span(data-type="iso-date", data-item="campaign-date", data-datetype="start", data-original-date=campaign.startedOn)
-            &nbsp; &nbsp;
-            span.mdi.mdi-clock-out
-            span(data-type="iso-date", data-item="campaign-date", data-datetype="finish", data-original-date=campaign.expiresOn)
+                | &nbsp; &nbsp;
+                span.mdi.mdi-clock-out
+                span(data-type="iso-date", data-item="campaign-date", data-datetype="finish", data-original-date=campaign.expiresOn)
             p #{campaign.description}
             .site--progressbar
                 .site--progressbar-percent #{campaign.percentage}%

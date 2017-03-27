@@ -1,9 +1,11 @@
 extends layout
 include mixins/campaign.jade
+include mixins/sitenav.jade
+include mixins/categories.jade
 
 block content
     header.site--header
-        include partials/sitenav
+        +upperNav(path)
         article.site--header-content
             .site--header-content--background
             h1 Kids for Playgrounds
@@ -11,10 +13,14 @@ block content
                 | 83,4% -
                 span.normal 10.436 / 12.500 GBP
             h4 by Andrei Hodorog
-    include partials/categories
-    section.site-section
-        h1.site-section--title.ARTS Projects people loved
-        .site--itemlist
-            if campaigns
+    +categoriesNav(path)
+    if campaigns
+        section.site-section
+            h1.site-section--title(class=campaigns[0].category) Projects people loved in !{space}
+                if path != 'campaigns'
+                    | #{campaigns[0].category}
+                else
+                    | all categories
+            .site--itemlist
                 each campaign in campaigns
                     +campaign(campaign)

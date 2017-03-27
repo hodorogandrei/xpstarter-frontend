@@ -3,8 +3,6 @@ var express = require('express'),
 	endpointBase = 'http://localhost:8080/api/v1/',
 	najax = require('najax');
 
-console.log(__dirname);
-
 /* GET campaign pages. */
 
 // All campaigns
@@ -13,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 	najax({ url: url, type: 'GET' })
 		.success(function(data) {
-			res.render('campaigns', {campaigns: JSON.parse(data)._embedded.campaigns });
+			res.render('campaigns', {campaigns: JSON.parse(data)._embedded.campaigns, path: 'campaigns' });
 		});
 });
 
@@ -29,11 +27,25 @@ router.get('/:category', function(req, res, next) {
 			'infrastructure': 'INFRASTRUCTURE'
 		},
 		categoryServerRequest = categoryMapping[categoryURLFormat],
-		url = endpointBase + '/campaigns/search/findByCategory?category=' + categoryServerRequest;
+		url = endpointBase + '/campaigns/search/findByCategory?category=' + categoryServerRequest,
+		requestPath = req.path,
+		queryParams = req.query;
+
+	if(Object.keys(queryParams).length !== 0) {
+		if(queryParams.size) {
+			url += '&size=' + queryParams.size;
+		}
+
+    if(queryParams.page) {
+      url += '&page=' + queryParams.page;
+    }
+	}
+
+	console.log(url);
 
 	najax({ url: url, type: 'GET' })
 		.success(function(data) {
-			res.render('campaigns', {campaigns: JSON.parse(data)._embedded.campaigns });
+			res.render('campaigns', {campaigns: JSON.parse(data)._embedded.campaigns, path: req.path });
 		});
 });
 

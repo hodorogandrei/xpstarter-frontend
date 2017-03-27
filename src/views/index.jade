@@ -1,8 +1,10 @@
 extends layout
+include mixins/sitenav.jade
+include mixins/categories.jade
 
 block content
     header.site--header
-        include partials/sitenav
+        +upperNav()
         article.site--header-content
             .site--header-content--background
             h1 Kids for Playgrounds
@@ -10,7 +12,7 @@ block content
                 | 83,4% -
                 span.normal 10.436 / 12.500 GBP
             h4 by Andrei Hodorog
-    include partials/categories
+    +categoriesNav()
     section.site-section
         h1.site-section--title Projects people loved
         .site--itemlist

@@ -1,0 +1,10 @@
+mixin categoriesNav(current)
+    section.site-section
+        h1.site-section--title What are you looking for?
+        ul.site-categorylist
+            a.item.SPORTS(href="/campaigns/sports-and-play", class=((current == "/sports-and-play") ? "active" : "")) Sports &amp; Play
+            a.item.PARKS(href="/campaigns/parks-and-gardens", class=((current == "/parks-and-gardens") ? "active" : "")) Parks &amp; Gardens
+            a.item.ARTS(href="/campaigns/arts-and-culture", class=((current == "/arts-and-culture") ? "active" : "")) Arts &amp; Culture
+            a.item.BUILDINGS(href="/campaigns/buildings", class=((current == "/buildings") ? "active" : "")) Buildings
+            a.item.FOOD(href="/campaigns/food", class=((current == "/food") ? "active" : "")) Food &amp; Farming
+            a.item.INFRASTRUCTURE(href="/campaigns/infrastructure", class=((current == "/infrastructure") ? "active" : "")) Insfrastructure

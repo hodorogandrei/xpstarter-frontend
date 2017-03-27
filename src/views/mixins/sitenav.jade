@@ -1,0 +1,21 @@
+mixin upperNav(current)
+    - var navItems = { 'new-campaign': 'create', 'campaigns': 'browse', 'about-us': 'about us' }
+    nav.sitenav--nav
+        .container
+            input(class="functional-hidden sitenav--showhide" id="sitenav--showhide" type="checkbox")
+            .sitenav--background
+            .sitenav--logo
+                img(src="/static/images/logo.png")
+            .sitenav--content
+                .sitenav--menu
+                    for item, path in navItems
+                        .item
+                            a(href="/" + path, class=((path == current) ? "active" : ""))= item
+
+                .sitenav--admin
+                    .item
+                        a(href="/register") Register
+                        | /
+                        a(href="/login") Log In
+            label(for="sitenav--showhide").sitenav--menu-button
+                .mdi.mdi-menu

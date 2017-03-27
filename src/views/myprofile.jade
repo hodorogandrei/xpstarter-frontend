@@ -1,8 +1,9 @@
 extends layout
+include mixins/sitenav.jade
 
 block content
     header.site--header.profile(style="background-image: url('/static/images/stock1.jpg')")
-        include partials/sitenav
+        +upperNav
         article.site--header-content
             .site--header-content--background
             h1
