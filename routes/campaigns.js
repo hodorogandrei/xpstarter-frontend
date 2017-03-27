@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 	najax({ url: url, type: 'GET' })
 		.success(function(responseObject) {
 		  responseObject = JSON.parse(responseObject);
-			res.render('campaigns', {title: title, campaigns: responseObject._embedded.campaigns, path: 'campaigns', currentPage: queryParams.page, totalPages: responseObject.page.totalPages });
+			res.render('campaigns', {pageTitle: title, campaigns: responseObject._embedded.campaigns, path: 'campaigns', currentPage: queryParams.page, totalPages: responseObject.page.totalPages });
 		});
 });
 
