@@ -20,10 +20,18 @@ router.get('/', function(req, res, next) {
     }
   }
 
+  console.log('req', req);
+
 	najax({ url: url, type: 'GET' })
 		.success(function(responseObject) {
 		  responseObject = JSON.parse(responseObject);
-			res.render('campaigns', {pageTitle: title, campaigns: responseObject._embedded.campaigns, path: 'campaigns', currentPage: queryParams.page, totalPages: responseObject.page.totalPages });
+			res.render('campaigns', {
+				pageTitle: title,
+				campaigns: responseObject._embedded.campaigns,
+				path: 'campaigns',
+				currentPage: parseInt(queryParams.page, 10),
+				totalPages: parseInt(responseObject.page.totalPages, 10)
+			});
 		});
 });
 
@@ -52,13 +60,23 @@ router.get('/:category', function(req, res, next) {
     if(queryParams.page) {
       url += '&page=' + queryParams.page;
     }
+
+    if(queryParams.sort) {
+      url += '&sort=' + queryParams.sort;
+    }
 	}
 
   title += ' - ' + categoryServerRequest + ' campaigns';
 	najax({ url: url, type: 'GET' })
 		.success(function(responseObject) {
       responseObject = JSON.parse(responseObject);
-			res.render('campaigns', {pageTitle: title, campaigns: responseObject._embedded.campaigns, path: req.path, currentPage: queryParams.page, totalPages: responseObject.page.totalPages });
+			res.render('campaigns', {
+				pageTitle: title,
+				campaigns: responseObject._embedded.campaigns,
+				path: req.path,
+				currentPage: parseInt(queryParams.page, 10),
+				totalPages: parseInt(responseObject.page.totalPages, 10)
+			});
 		});
 });
 

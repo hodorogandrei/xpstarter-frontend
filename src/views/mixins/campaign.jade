@@ -4,6 +4,8 @@ mixin campaign(campaign)
             img(src="/static/images/stock2.jpg")
             .badge
                 .mdi.mdi-heart
+                span.likeCount #{campaign.likeCount}
+
         footer
             h1 #{campaign.name}
             h4(data-item="campaign-category") #{campaign.category}

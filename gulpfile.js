@@ -108,7 +108,9 @@ gulp.task('libraries', function() {
     return concat({
         "libraries.js": [
             'bower_components/jquery/dist/jquery.min.js',
-            'bower_components/moment/min/moment.min.js'
+            'bower_components/moment/min/moment.min.js',
+            'bower_components/d3/d3.min.js',
+            'bower_components/c3/c3.min.js'
         ]
     })
         .on('error', $.util.log)
@@ -120,8 +122,9 @@ gulp.task('app-scripts', function() {
     return concat({
         "app-scripts.js": [
             'src/js/helpers.js',
-            'src/js/init.js',
-            'src/js/**/*.js'
+            'src/js/formatters.js',
+            'src/js/stats.js',
+            'src/js/init.js'
         ]
     })
         .on('error', $.util.log)

@@ -6,8 +6,17 @@ var express = require('express'),
 console.log(__dirname);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'XPressStarter - Crowd funding for civic projects' });
+router.get('/', function(req, res) {
+  res.render('index', {
+  	pageTitle: 'XPress Starter - Crowd funding for civic projects'
+  });
+});
+
+router.get('/statistics', function (req, res) {
+	res.render('statistics', {
+		pageTitle: 'XPress Starter - Campaign Statistics',
+		path: 'statistics'
+	});
 });
 
 module.exports = router;

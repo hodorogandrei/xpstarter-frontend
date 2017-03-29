@@ -1,11 +1,16 @@
 block variables
     - title = pageTitle
+        - currentPage = currentPage || 0
 extends layout
 include mixins/campaign.jade
 include mixins/sitenav.jade
 include mixins/categories.jade
+include mixins/pagination.jade
 
 block content
+    //h1= currentPage
+    //h1= totalPages
+    //h1= path
     header.site--header
         +upperNav(path)
         article.site--header-content
@@ -16,13 +21,24 @@ block content
                 span.normal 10.436 / 12.500 GBP
             h4 by Andrei Hodorog
     +categoriesNav(path)
-    if campaigns
-        section.site-section
-            h1.site-section--title(class=campaigns[0].category) Projects people loved in !{space}
-                if path != 'campaigns'
-                    | #{campaigns[0].category}
-                else
-                    | all categories
-            .site--itemlist
-                each campaign in campaigns
-                    +campaign(campaign)
+    .container.text-center
+        if campaigns
+            section.text-center
+                #custom-search-input
+                    .input-group.col-md-12
+                        input.search-query.form-control(type='text', placeholder='Search')
+                        span.input-group-btn
+                            button.btn.btn-danger(type='button')
+                                span.mdi.mdi-magnify
+
+            section
+                h1.site-section--title(class=campaigns[0].category) Projects people loved in !{space}
+                    if path != 'campaigns'
+                        | #{campaigns[0].category}
+                    else
+                        | all categories
+                .site--itemlist
+                    each campaign in campaigns
+                        +campaign(campaign)
+
+            +pagination(currentPage, totalPages, path)
