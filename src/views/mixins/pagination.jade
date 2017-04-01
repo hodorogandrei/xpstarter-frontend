@@ -1,0 +1,70 @@
+//- Mixin for creating a pagination button
+mixin paginationLink(page, currentPage, path, useOtherLabel)
+    - var startPath = ''
+    if path !== 'campaigns'
+        - startPath = '/campaigns'
+    li(class="#{(page == currentPage ? 'active' : '')}")
+        a(href="#{startPath}#{path}?page=#{page - 1}", data-action="pagination")
+            if useOtherLabel
+                block
+            else
+                | #{page}
+
+//- Pagination
+mixin pagination(currentPage, totalPages, path)
+    ul.pagination
+        if currentPage + 1 != 1
+            +paginationLink(currentPage + 1 - 1, currentPage + 1, path, true)
+                span.mdi.mdi-arrow-left
+
+        //- Page one, always visible
+        +paginationLink(1, currentPage + 1, path)
+
+        //- Ellipsis, visible when page 2 isn't
+        if currentPage + 1 > 4
+            li
+                a(href="") &nbsp;&hellip;&nbsp;
+
+        //- Edge cases for showing extra buttons when at beginning
+        if currentPage + 1 > totalPages - 2 &&  totalPages - 4 > 1
+            +paginationLink(totalPages - 4, currentPage + 1, path)
+
+        if currentPage + 1 > totalPages - 1 &&  totalPages - 3 > 1
+            +paginationLink(totalPages - 3, currentPage + 1, path)
+
+
+        //- Two pages before current page
+        if currentPage + 1 > 3
+            +paginationLink(currentPage + 1 - 2, currentPage + 1, path)
+        if currentPage + 1 > 2
+            +paginationLink(currentPage + 1 - 1, currentPage + 1, path)
+
+        //- Current page
+        if currentPage + 1 != 1 && currentPage + 1 != totalPages
+            +paginationLink(currentPage + 1, currentPage + 1, path)
+
+        //- Two pages after current page
+        if currentPage + 1 + 1 < totalPages
+            +paginationLink(currentPage + 1 + 1, currentPage + 1, path)
+        if currentPage + 1 + 2 < totalPages
+            +paginationLink(currentPage + 1 + 2, currentPage + 1, path)
+
+
+        //- Edge cases for showing extra buttons when at end
+        if currentPage + 1 < 3 && totalPages > currentPage + 1 + 3
+            +paginationLink(currentPage + 1 + 3, currentPage + 1, path)
+        if currentPage + 1 < 2 && totalPages > currentPage + 1 + 4
+            +paginationLink(currentPage + 1 + 4, currentPage + 1, path)
+
+        //- Ellipsis, visible when (totalPages - 1) isn't
+        if currentPage + 1 + 3 < totalPages
+            li
+                a(href="#") &nbsp;&hellip;&nbsp;
+
+        //- Final page, always visible if more than 1 page
+        if totalPages != 1
+            +paginationLink(totalPages, currentPage + 1, path)
+
+        if currentPage + 1 != totalPages
+            +paginationLink(currentPage + 1 + 1, currentPage + 1, path, true)
+                span.mdi.mdi-arrow-right

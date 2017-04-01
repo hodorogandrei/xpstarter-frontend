@@ -1,0 +1,14 @@
+block variables
+    - title = pageTitle
+    - currentPage = currentPage || 0
+extends layout
+include mixins/sitenav.jade
+
+block content
+    header.site--header
+        +upperNav(path)
+    .container
+        h1.site-section--title Most funded campaigns
+        #chart
+        h1.site-section--title Nearly funded campaigns
+        #chart2
