@@ -1,0 +1,19 @@
+mixin sectionTitle(categoryName, path)
+    - var categoryIcons = {}
+    - categoryIcons['SPORTS'] = 'mdi-bike'
+    - categoryIcons['PARKS'] = 'mdi-leaf'
+    - categoryIcons['ARTS'] = 'mdi-brush'
+    - categoryIcons['BUILDINGS'] = 'mdi-home'
+    - categoryIcons['FOOD'] = 'mdi-food-apple'
+    - categoryIcons['INFRASTRUCTURE'] = 'mdi-car'
+
+    h1.site-section--title(class=categoryName)
+        if path != 'campaigns'
+            span.mdi(class=categoryIcons[categoryName])
+            br
+            | #{campaigns[0].category}
+        else
+            for item, colorClass in categoryIcons
+                span.mdi(class="#{item} #{colorClass}")&nbsp;
+            br
+            | all categories

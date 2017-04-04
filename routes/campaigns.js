@@ -6,21 +6,23 @@ var express = require('express'),
 
 // All campaigns
 router.get('/', function(req, res, next) {
-	var url = endpointBase + '/campaigns/',
+	var url = endpointBase + '/campaigns?',
       queryParams = req.query,
     	title = 'XPress Starter - All campaigns';
 
-  if(Object.keys(queryParams).length !== 0) {
-    if(queryParams.size) {
-      url += '&size=' + queryParams.size;
-    }
+	if(Object.keys(queryParams).length !== 0) {
+		if(queryParams.size) {
+		  url += '&size=' + queryParams.size;
+		}
 
-    if(queryParams.page) {
-      url += '&page=' + queryParams.page;
-    }
-  }
+		if(queryParams.page) {
+		  url += '&page=' + queryParams.page;
+		}
 
-  console.log('req', req);
+		if(queryParams.sort) {
+		  url += '&sort=' + queryParams.sort;
+		}
+	}
 
 	najax({ url: url, type: 'GET' })
 		.success(function(responseObject) {
@@ -32,7 +34,7 @@ router.get('/', function(req, res, next) {
 				currentPage: parseInt(queryParams.page, 10),
 				totalPages: parseInt(responseObject.page.totalPages, 10)
 			});
-		});
+	});
 });
 
 // Campaigns from one category
@@ -48,7 +50,6 @@ router.get('/:category', function(req, res, next) {
 		},
 		categoryServerRequest = categoryMapping[categoryURLFormat],
 		url = endpointBase + '/campaigns/search/findByCategory?category=' + categoryServerRequest,
-		requestPath = req.path,
 		queryParams = req.query,
     title = 'XPress Starter';
 
@@ -57,27 +58,62 @@ router.get('/:category', function(req, res, next) {
 			url += '&size=' + queryParams.size;
 		}
 
-    if(queryParams.page) {
-      url += '&page=' + queryParams.page;
-    }
+	    if(queryParams.page) {
+	      url += '&page=' + queryParams.page;
+	    }
 
-    if(queryParams.sort) {
-      url += '&sort=' + queryParams.sort;
-    }
+	    if(queryParams.sort) {
+	      url += '&sort=' + queryParams.sort;
+	    }
 	}
 
-  title += ' - ' + categoryServerRequest + ' campaigns';
+  	title += ' - ' + categoryServerRequest + ' campaigns';
 	najax({ url: url, type: 'GET' })
 		.success(function(responseObject) {
-      responseObject = JSON.parse(responseObject);
-			res.render('campaigns', {
-				pageTitle: title,
-				campaigns: responseObject._embedded.campaigns,
-				path: req.path,
-				currentPage: parseInt(queryParams.page, 10),
-				totalPages: parseInt(responseObject.page.totalPages, 10)
-			});
+      	responseObject = JSON.parse(responseObject);
+		res.render('campaigns', {
+			pageTitle: title,
+			campaigns: responseObject._embedded.campaigns,
+			path: req.path,
+			currentPage: parseInt(queryParams.page, 10),
+			totalPages: parseInt(responseObject.page.totalPages, 10)
 		});
+	});
+});
+
+// Search campaigns
+router.get('/search/:searchQuery', function(req, res, next) {
+	var searchQuery = req.params.searchQuery,
+		url = endpointBase + '/campaigns/search/findByNameContainingOrDescriptionContainingAllIgnoreCase?keyword=' + searchQuery,
+		queryParams = req.query,
+		title = 'XPress Starter';
+
+	title += ' - Campaigns containing "' + searchQuery + '"';
+	if(Object.keys(queryParams).length !== 0) {
+		if(queryParams.size) {
+			url += '&size=' + queryParams.size;
+		}
+
+	    if(queryParams.page) {
+	      url += '&page=' + queryParams.page;
+	    }
+
+	    if(queryParams.sort) {
+	      url += '&sort=' + queryParams.sort;
+	    }
+	}
+
+	najax({ url: url, type: 'GET' })
+		.success(function(responseObject) {
+      	responseObject = JSON.parse(responseObject);
+		res.render('campaigns', {
+			pageTitle: title,
+			campaigns: responseObject._embedded.campaigns,
+			path: req.path,
+			currentPage: parseInt(queryParams.page, 10),
+			totalPages: parseInt(responseObject.page.totalPages, 10)
+		});
+	});
 });
 
 module.exports = router;

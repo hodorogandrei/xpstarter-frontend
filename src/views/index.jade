@@ -1,6 +1,9 @@
+block variables
+    - title = pageTitle
 extends layout
 include mixins/sitenav.jade
 include mixins/categories.jade
+include mixins/campaign.jade
 
 block content
     header.site--header
@@ -14,114 +17,18 @@ block content
             h4 by Andrei Hodorog
     +categoriesNav()
     section.site-section
-        h1.site-section--title Projects people loved
-        .site--itemlist
-            article.site--project.SPORTS
-                header
-                    img(src="/static/images/stock2.jpg")
-                    .badge
-                        .mdi.mdi-heart
-                footer
-                    h1 People who bike
-                    h4 Sports & Play
-                    h4
-                        span.mdi.mdi-map-marker
-                        | Location
-                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    .site--progressbar
-                        .site--progressbar-percent 73%
-                        .site--progressbar-container
-                            .site--progressbar-progress(style="width: 73%")
-                    p 2.480 GBP - 19 days left
-            article.site--project.parks
-                header
-                    img(src="/static/images/stock2.jpg")
-                    .badge
-                        .mdi.mdi-heart
-                footer
-                    h1 Gardens for us
-                    h4 Parks & Gardens
-                    h4
-                        span.mdi.mdi-map-marker
-                        | Location
-                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    .site--progressbar
-                        .site--progressbar-percent 73%
-                        .site--progressbar-container
-                            .site--progressbar-progress(style="width: 73%")
-                    p 2.480 GBP - 19 days left
-            article.site--project.buildings
-                header
-                    img(src="/static/images/stock2.jpg")
-                    .badge
-                        .mdi.mdi-heart
-                footer
-                    h1 Theatre & Culture
-                    h4 Buildings
-                    h4
-                        span.mdi.mdi-map-marker
-                        | Location
-                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    .site--progressbar
-                        .site--progressbar-percent 73%
-                        .site--progressbar-container
-                            .site--progressbar-progress(style="width: 73%")
-                    p 2.480 GBP - 19 days left
+        if mostLikedCampaigns
+            h1.site-section--title Projects people loved
+            .site--itemlist
+                each campaign in mostLikedCampaigns
+                    +campaign(campaign)
 
     section.site-section
-        h1.site-section--title New Projects
-        .site--itemlist
-            article.site--project.sports
-                header
-                    img(src="/static/images/stock2.jpg")
-                    .badge
-                        .mdi.mdi-heart
-                footer
-                    h1 People who bike
-                    h4 Sports & Play
-                    h4
-                        span.mdi.mdi-map-marker
-                        | Location
-                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    .site--progressbar
-                        .site--progressbar-percent 73%
-                        .site--progressbar-container
-                            .site--progressbar-progress(style="width: 73%")
-                    p 2.480 GBP - 19 days left
-            article.site--project.parks
-                header
-                    img(src="/static/images/stock2.jpg")
-                    .badge
-                        .mdi.mdi-heart
-                footer
-                    h1 Gardens for us
-                    h4 Parks & Gardens
-                    h4
-                        span.mdi.mdi-map-marker
-                        | Location
-                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    .site--progressbar
-                        .site--progressbar-percent 73%
-                        .site--progressbar-container
-                            .site--progressbar-progress(style="width: 73%")
-                    p 2.480 GBP - 19 days left
-            article.site--project.buildings
-                header
-                    img(src="/static/images/stock2.jpg")
-                    .badge
-                        .mdi.mdi-heart
-                footer
-                    h1 Theatre & Culture
-                    h4 Buildings
-                    h4
-                        span.mdi.mdi-map-marker
-                        | Location
-                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    .site--progressbar
-                        .site--progressbar-percent 73%
-                        .site--progressbar-container
-                            .site--progressbar-progress(style="width: 73%")
-                    p 2.480 GBP - 19 days left
+        if mostRecentCampaigns
+            h1.site-section--title New Projects
+            .site--itemlist
+                each campaign in mostRecentCampaigns
+                    +campaign(campaign)
 
 
 

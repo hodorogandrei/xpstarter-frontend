@@ -113,6 +113,46 @@ var stats = (function() {
         //width: 100 // this makes bar width 100px
       }
     });
+
+    var chart3 = c3.generate({
+      bindto: '#chart3',
+      data: {
+        columns:[
+          [
+            "ARTS",
+            50.15555452522254
+          ],
+          [
+            "SPORTS",
+            50.19941079112876
+          ],
+          [
+            "PARKS",
+            49.851576673866084
+          ],
+          [
+            "BUILDINGS",
+            50.298034671188994
+          ],
+          [
+            "FOOD",
+            49.915915085236406
+          ],
+          [
+            "INFRASTRUCTURE",
+            50.15932728479751
+          ]
+        ],
+        type: 'bar'
+      },
+      bar: {
+        width: {
+          ratio: 0.5 // this makes bar width 50% of length between ticks
+        }
+        // or
+        //width: 100 // this makes bar width 100px
+      }
+    });
   };
 
   return module;

@@ -17,6 +17,10 @@ section.site-section
     @each $category in $categories
         &.#{$category}
             color: map-get($categoryMap, $category)
+    .mdi
+        @each $category in $categories
+            &.#{$category}
+                color: map-get($categoryMap, $category)
 
 .site-categorylist
     margin: 0
@@ -31,17 +35,19 @@ section.site-section
         justify-content: center
         align-items: center
         padding: 5px 7px
-        border: solid 2px black
+        // border: solid 2px black
         border-radius: 7px
         margin: 5px
         text-transform: uppercase
         cursor: pointer
         transition: all 0.3s $animation-curve-default
+        .mdi
+            font-size: 2rem
         @each $category in $categories
             &.#{$category}
                 color: map-get($categoryMap, $category)
-                border-color: map-get($categoryMap, $category)
-                &:hover, &.active
+                // border-color: map-get($categoryMap, $category)
+                &:hover
                     color: white
                     background-color: map-get($categoryMap, $category)
                     text-decoration: none

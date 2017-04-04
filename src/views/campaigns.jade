@@ -1,16 +1,15 @@
 block variables
     - title = pageTitle
-        - currentPage = currentPage || 0
+    - currentPage = currentPage || 0
 extends layout
 include mixins/campaign.jade
 include mixins/sitenav.jade
+include mixins/section-title.jade
 include mixins/categories.jade
 include mixins/pagination.jade
 
 block content
-    //h1= currentPage
-    //h1= totalPages
-    //h1= path
+
     header.site--header
         +upperNav(path)
         article.site--header-content
@@ -28,15 +27,11 @@ block content
                     .input-group.col-md-12
                         input.search-query.form-control(type='text', placeholder='Search')
                         span.input-group-btn
-                            button.btn.btn-danger(type='button')
+                            button.btn.btn-danger(type='button', data-button="search-button")
                                 span.mdi.mdi-magnify
 
             section
-                h1.site-section--title(class=campaigns[0].category) Projects people loved in !{space}
-                    if path != 'campaigns'
-                        | #{campaigns[0].category}
-                    else
-                        | all categories
+                +sectionTitle(campaigns[0].category, path)
                 .site--itemlist
                     each campaign in campaigns
                         +campaign(campaign)
