@@ -1,32 +1,19 @@
-// var endpointBase = 'http://localhost:8080/api/v1/';
+var requestHandlers = (function() {
+	var module = {};
 
-// var requestHandlers = (function() {
-// 	var module = {};
+	module.searchCampaigns = function() {
+		$('[data-button="search-button"]').on('click', function() {
+			var searchQuery = $(this).parents('.input-group').find('.search-query').val();
+			// console.log(searchQuery);
+			// $.ajax({
+			// 	url: '/campaigns/search/' + searchQuery,
+			// 	type: 'GET'
+			// });
+			window.location.href = '/campaigns/search/' + searchQuery;
+		});
+	};
 
-// 	module.getCampaigns = function(id) {
-// 		var url = endpointBase + '/campaigns/'
+	return module;
+})();
 
-// 		if(id) {
-// 			url += 'id';
-// 		}
-
-// 		jQuery.extend({
-// 		    getValues: function(url) {
-// 		        var result = null;
-// 		        $.ajax({
-// 		            url: url,
-// 		            type: 'get',
-// 		            dataType: 'json',
-// 		            async: false,
-// 		            success: function(data) {
-// 		                result = data;
-// 		            }
-// 		        });
-// 		       return result;
-// 		    }
-// 		});
-
-// 		const allData = $.getValues(url);
-// 		return allData;
-// 	}
-// })();
+requestHandlers.searchCampaigns();

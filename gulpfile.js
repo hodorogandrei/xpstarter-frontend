@@ -124,6 +124,7 @@ gulp.task('app-scripts', function() {
             'src/js/helpers.js',
             'src/js/formatters.js',
             'src/js/stats.js',
+            'src/js/requestHandlers.js',
             'src/js/init.js'
         ]
     })
