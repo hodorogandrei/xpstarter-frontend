@@ -33,7 +33,7 @@
     "gulp-nodemon": "^2.2.1",
     "gulp-postcss": "^2.0.0",
     "gulp-ruby-sass": "^0.4.3",
-    "gulp-sourcemaps": "^2.4.1",
+    "gulp-sourcemaps": "git@github.com:gulp-sourcemaps/gulp-sourcemaps.git#v2.3.0",
     "gulp-util": "^3.0.1",
     "http": "0.0.0",
     "moment": "^2.18.1",
