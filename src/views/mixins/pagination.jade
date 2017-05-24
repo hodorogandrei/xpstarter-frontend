@@ -1,10 +1,7 @@
 //- Mixin for creating a pagination button
 mixin paginationLink(page, currentPage, path, useOtherLabel)
-    - var startPath = ''
-    if path !== 'campaigns'
-        - startPath = '/campaigns'
     li(class="#{(page == currentPage ? 'active' : '')}")
-        a(href="#{startPath}#{path}?page=#{page - 1}", data-action="pagination")
+        a(href="#{path}?page=#{page - 1}", data-action="pagination")
             if useOtherLabel
                 block
             else

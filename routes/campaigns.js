@@ -2,6 +2,7 @@ var express = require('express'),
 	router = express.Router(),
 	endpointBase = 'http://localhost:8080/api/v1/',
 	najax = require('najax'),
+	async = require('async'),
 	categoryMapping = {
 		'arts-and-culture': 'ARTS',
 		'sports-and-play': 'SPORTS',
@@ -24,7 +25,6 @@ var express = require('express'),
 router.get('/:category?', function(req, res, next) {
 	var queryParams = req.query,
     	title = 'XPress Starter';
-    console.log(req.path);
 	if(req.params.category) {
 		var categoryURLFormat = req.params.category,
 			categoryServerRequest = categoryMapping[categoryURLFormat],
@@ -62,7 +62,7 @@ router.get('/:category?', function(req, res, next) {
 		res.render('campaigns', {
 			pageTitle: title,
 			campaigns: responseObject._embedded.campaigns,
-			path: req.path,
+			path: req.baseUrl + req.path,
 			currentPage: parseInt(queryParams.page, 10),
 			totalPages: parseInt(responseObject.page.totalPages, 10)
 		});
@@ -76,54 +76,31 @@ router.get('/:category/:campaignId', function(req, res, next) {
     	url = endpointBase + '/campaigns/' + req.params.campaignId,
     	urlDonations = endpointBase + '/donations/search/findByCampaignId?campaignid=' + req.params.campaignId;
 
-	najax({ url: url, type: 'GET' }).success(function(responseObject) {
-      	responseObject = JSON.parse(responseObject);
-
-      	title = title + responseObject.name;
-
-
-		res.render('campaign', {
-			pageTitle: title,
-			campaign: responseObject
+    async.series([
+    		function(callback) {
+				najax({ url: url, type: 'GET' })
+				.success(function(responseObject) {
+		      		responseObject = JSON.parse(responseObject);
+		      		title = title + responseObject.name;
+		      		callback(null, responseObject);
+		      	});
+    		},
+    		function(callback) {
+    			najax({ url: urlDonations, type: 'GET' })
+				.success(function(responseObject) {
+		      		responseObject = JSON.parse(responseObject);
+		      		callback(null, responseObject);
+		      	});
+    		}
+		], function(err, results) {
+			res.render('campaign', {
+				pageTitle: title,
+				campaign: results[0],
+				usersDonated: results[1]._embedded.donations
+			});
 		});
-	});
-});
 
-// Search campaigns
-router.get('/search/:searchQuery', function(req, res, next) {
-	var searchQuery = req.params.searchQuery,
-		url = endpointBase + '/campaigns/search/findByNameContainingOrDescriptionContainingAllIgnoreCase?keyword=' + searchQuery,
-		queryParams = req.query,
-		title = 'XPress Starter';
 
-	console.log(searchQuery);
-	console.log(url);
-
-	title += ' - Campaigns containing "' + searchQuery + '"';
-	if(Object.keys(queryParams).length !== 0) {
-		if(queryParams.size) {
-			url += '&size=' + queryParams.size;
-		}
-
-	    if(queryParams.page) {
-	      url += '&page=' + queryParams.page;
-	    }
-
-	    if(queryParams.sort) {
-	      url += '&sort=' + queryParams.sort;
-	    }
-	}
-
-	najax({ url: url, type: 'GET' }).success(function(responseObject) {
-      	responseObject = JSON.parse(responseObject);
-		res.render('campaigns', {
-			pageTitle: title,
-			campaigns: responseObject._embedded.campaigns,
-			path: req.path,
-			currentPage: parseInt(queryParams.page, 10),
-			totalPages: parseInt(responseObject.page.totalPages, 10)
-		});
-	});
 });
 
 module.exports = router;

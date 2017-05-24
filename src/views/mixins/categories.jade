@@ -10,8 +10,8 @@ mixin categoriesNav(current, all)
         h1.site-section--title What are you looking for?
         ul.site-categorylist
             for item, path in categories
-                if "/" + path == current
-                    a.item(class=item.cssClass, href="/campaigns")
+                if "/campaigns/" + path == current
+                    a.item(class=item.cssClass, href="/campaigns").active
                         span.mdi.mdi-arrow-up &nbsp;
                         | show all
                 else
