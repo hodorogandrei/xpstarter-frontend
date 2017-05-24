@@ -7,7 +7,8 @@ mixin campaign(campaign)
                 span.likeCount #{campaign.likeCount}
 
         footer
-            h1 #{campaign.name}
+            a(href='/' + campaign.campaignLink)
+                h1 #{campaign.name}
             h4(data-item="campaign-category") #{campaign.category}
             h4
                 span.mdi.mdi-map-marker

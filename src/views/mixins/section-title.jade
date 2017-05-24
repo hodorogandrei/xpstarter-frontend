@@ -8,12 +8,12 @@ mixin sectionTitle(categoryName, path)
     - categoryIcons['INFRASTRUCTURE'] = 'mdi-car'
 
     h1.site-section--title(class=categoryName)
-        if path != 'campaigns'
+        if path != '/'
             span.mdi(class=categoryIcons[categoryName])
             br
             | #{campaigns[0].category}
         else
             for item, colorClass in categoryIcons
-                span.mdi(class="#{item} #{colorClass}")&nbsp;
+                span.mdi(class="#{item} #{colorClass}") &nbsp;
             br
             | all categories
