@@ -22,6 +22,20 @@ section.site-section
             &.#{$category}
                 color: map-get($categoryMap, $category)
 
+.category-name
+    @each $category in $categories
+        &.#{$category}
+            color: map-get($categoryMap, $category)
+    .mdi
+        @each $category in $categories
+            &.#{$category}
+                color: map-get($categoryMap, $category)
+
+.site-section--subtitle
+    text-align: left
+    text-transform: uppercase
+    font-weight: normal
+
 .site-categorylist
     margin: 0
     padding: 0

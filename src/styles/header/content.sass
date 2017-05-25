@@ -1,7 +1,7 @@
 article.site--header-content
     position: absolute
     left: 0
-    bottom: 0px
+    bottom: 32px
     margin: 0 0 0 25px
     padding: 0 0 ($header-content-background-offset * 2) 0
     z-index: 2
@@ -39,10 +39,10 @@ article.site--header-content
     background: #14b7e0
     transform: translateY(-$header-content-background-offset) translateX(-$header-content-background-offset)
 
-.site--header.profile
+.site--header.profile, .site--header.campaign
     .editprofile
         background: #578eb5
-        color: white
+        color: #fff
         display: inline-block
         float: right
         border-radius: 7px
@@ -56,7 +56,18 @@ article.site--header-content
         font-weight: 400
     .site--header-content--background
         transform: none
-        background: rgba(0, 0, 0, $header-nav-opacity)
+        &.profile
+            background: rgba(0, 0, 0, $header-nav-opacity)
+        &.campaign
+            background: rgba(255, 255, 255, $header-campaign-opacity)
         &::before, &::after
             background: transparent
             transform: none
+
+.site--header.profile
+    color: #fff
+
+.site--header.campaign
+    color: #000
+    article.site--header-content
+        width: 100%

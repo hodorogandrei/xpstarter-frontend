@@ -1,20 +1,45 @@
 block variables
     - title = pageTitle
     - currentPage = currentPage || 0
+    - categoryIcons = {}
+    - categoryIcons['SPORTS'] = 'mdi-bike'
+    - categoryIcons['PARKS'] = 'mdi-leaf'
+    - categoryIcons['ARTS'] = 'mdi-brush'
+    - categoryIcons['BUILDINGS'] = 'mdi-home'
+    - categoryIcons['FOOD'] = 'mdi-food-apple'
+    - categoryIcons['INFRASTRUCTURE'] = 'mdi-car'
 extends layout
 include mixins/sitenav.jade
 
 block content
-    header.site--header
-        +upperNav(path)
-        article.site--header-content
-            .site--header-content--background
-            h1 Kids for Playgrounds
-            h4
-                | 83,4% -
-                span.normal 10.436 / 12.500 GBP
-            h4 by Andrei Hodorog
-    .container.text-center
-        - console.log(campaign)
-        - console.log(usersDonated)
+    +upperNav(path)
 
+    header.site--header.campaign(style="background-image: url('/static/images/campaignPics/stock2.png')")
+        article.site--header-content
+            .site--header-content--background.campaign
+            h1= campaign.name
+            .text-xxl.category-name.bold(class=campaign.category)
+                span.mdi(class=categoryIcons[campaign.category])
+                   | #{campaign.category}
+            .text-xxl.green
+                span.mdi.mdi-map-marker
+                | Cardiff, United Kingdom
+    .container
+        section.site-section
+            .row
+                .col-md-8.col-xs-12.br
+                        h2.site-section--subtitle About this project
+                        p.bold= campaign.description
+                        p= campaign.description
+                        p= campaign.description
+                        p= campaign.description
+                        br
+                        br
+                        br
+                        br
+                        h2.site-section--subtitle Impact
+                        p.bold= campaign.description
+                        p= campaign.description
+                        p= campaign.description
+                        p= campaign.description
+        section.

@@ -2,7 +2,7 @@ mixin upperNav(current)
     - var navItems = {}
     - navItems['new-campaign'] = 'create'
     - navItems['campaigns'] = 'browse all campaigns',
-    - navItems['about-us'] = 'about us',
+    - navItems['pending-campaigns'] = 'pending campaigns',
     - navItems['statistics'] = 'statistics'
 
     nav.sitenav--nav
@@ -11,7 +11,7 @@ mixin upperNav(current)
             .sitenav--background
             .sitenav--logo
                 a(href="/")
-                    img(src="/static/images/logo.png")
+                    img(src="/static/images/logonew.png")
             .sitenav--content
                 .sitenav--menu
                     for item, path in navItems
@@ -20,8 +20,9 @@ mixin upperNav(current)
 
                 .sitenav--admin
                     .item
-                        a(href="/register") Register
-                        | /
-                        a(href="/login") Log In
+                        //- a(href="/register") Register
+                        //- | /
+                        //- a(href="/login") Log In
+                        a(href="/profile") My profile
             label(for="sitenav--showhide").sitenav--menu-button
                 .mdi.mdi-menu

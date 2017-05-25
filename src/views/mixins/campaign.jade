@@ -1,4 +1,12 @@
 mixin campaign(campaign)
+    - var categoryIcons = {}
+    - categoryIcons['SPORTS'] = 'mdi-bike'
+    - categoryIcons['PARKS'] = 'mdi-leaf'
+    - categoryIcons['ARTS'] = 'mdi-brush'
+    - categoryIcons['BUILDINGS'] = 'mdi-home'
+    - categoryIcons['FOOD'] = 'mdi-food-apple'
+    - categoryIcons['INFRASTRUCTURE'] = 'mdi-car'
+
     article.site--project(class=campaign.category, data-item="campaign")
         header
             img(src="/static/images/campaignPics/stock2.png")
@@ -9,7 +17,9 @@ mixin campaign(campaign)
         footer
             a(href='/' + campaign.campaignLink)
                 h1 #{campaign.name}
-            h4(data-item="campaign-category") #{campaign.category}
+            h4(data-item="campaign-category")
+               span.mdi(class=categoryIcons[campaign.category])
+               | #{campaign.category}
             h4
                 span.mdi.mdi-map-marker
                 | Cardiff

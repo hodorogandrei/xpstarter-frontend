@@ -1,16 +1,23 @@
 @import "vars"
 
-.sitenav--logo img, .sitenav--logo a img
-    height: $header-nav-logo-size
-    @include breakpoint( $header-resize-breakpoint )
-        height: $header-nav-logo-small-size
+.sitenav--logo
+    img, a img
+        opacity: 1
+        height: $header-nav-logo-size
+        @include breakpoint( $header-resize-breakpoint )
+            height: $header-nav-logo-small-size
+    a
+        display: block
+        width: 100%
+        height: 100%
 
 .sitenav--nav
     height: $header-nav-size
     @include breakpoint( $header-resize-breakpoint )
         height: $header-nav-small-size
-    position: absolute
+    position: relative
     left: 0
+    z-index: 99999
     right: 0
     top: 0
     z-index: 5
@@ -33,10 +40,11 @@
     filter: blur(5px)
 
 .sitenav--background::after
-    background: rgba(0, 0, 0, $header-nav-opacity)
+    background: #fff
+    // @include breakpoint( $header-resize-breakpoint )
+    //     background: rgba(0, 0, 0, $header-nav-opacity)
 
 .sitenav--menu,
-.sitenav--logo,
 .sitenav--admin,
 .sitenav--menu-button
     display: flex
@@ -46,21 +54,23 @@
     padding-bottom: 5px
     margin: 0 10px
     a
-        color: white
+        color: #000
+        @include breakpoint( $header-resize-breakpoint )
+            color: white
         padding: 0 5px
         opacity: 0.6
         &.active
             opacity: 1
-            font-size: 2.1rem
+            font-size: 1.8rem
             @include breakpoint( $header-resize-breakpoint )
                 font-size: 1.7rem
             text-transform: capitalize
         &:hover
             opacity: 0.8
-            text-decoration: none
+            text-decoration: underline
             cursor: pointer
     .item
-        font-size: 1.8rem
+        font-size: 1.5rem
         @include breakpoint( $header-resize-breakpoint )
             font-size: 1.4rem
         padding: 5px
