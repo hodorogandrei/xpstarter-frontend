@@ -1,0 +1,7 @@
+mixin paginationSort(queryParams)
+    .row
+        .col-md-6.col-xs-12
+            | Campaigns per page:
+            .badge.purple #{(queryParams.size) ? queryParams.size : "5"}
+        .col-md-6.col-xs-12
+            | test

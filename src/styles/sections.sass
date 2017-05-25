@@ -4,12 +4,16 @@ section.site-section
     border-top: solid 1px black
     &:first-of-type
         border-top: none
-    &::after, &::before
+    &::after
         content: ""
         display: block
         margin: 25px auto
         width: 75px
         border-top: solid 1px #CCC
+
+.site-section-similar
+    background-color: #333
+    color: #fff
 
 .site-section--title
     text-align: center
@@ -31,8 +35,14 @@ section.site-section
             &.#{$category}
                 color: map-get($categoryMap, $category)
 
+.selectpicker
+    color: #fff
+    @each $category in $categories
+        &.#{$category}
+            background-color: map-get($categoryMap, $category)
+
+
 .site-section--subtitle
-    text-align: left
     text-transform: uppercase
     font-weight: normal
 
@@ -65,3 +75,49 @@ section.site-section
                     color: white
                     background-color: map-get($categoryMap, $category)
                     text-decoration: none
+
+.global-footer
+    width: 100%
+    height: 60px
+    padding: 15px
+    display: block
+    background-color: #565656
+    color: #fff
+    text-align: center
+
+
+.outputbox
+    @each $category in $categories
+        &.#{$category}
+            background: #fff
+            position: absolute
+            top: 100%
+            left: 0
+            z-index: 999999999999
+            width: 100%
+            text-align: left
+            border: solid 1px #000
+            display: none
+
+            div.autorow
+                width: 100%
+                padding: 10px 5px
+
+                a
+                    display: block
+                    width: 100%
+                    height: 100%
+                    color: #000
+                    text-decoration: none
+
+                    &:hover
+                        color: #fff
+                        text-decoration: none
+
+                span
+                    @each $category in $categories
+                        &.#{$category}
+                            color: map-get($categoryMap, $category)
+
+                &:hover
+                    background-color: map-get($categoryMap, $category)

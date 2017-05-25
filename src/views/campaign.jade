@@ -10,6 +10,8 @@ block variables
     - categoryIcons['INFRASTRUCTURE'] = 'mdi-car'
 extends layout
 include mixins/sitenav.jade
+include mixins/campaign.jade
+include mixins/categories-list.jade
 
 block content
     +upperNav(path)
@@ -35,11 +37,23 @@ block content
                         p= campaign.description
                         br
                         br
-                        br
-                        br
                         h2.site-section--subtitle Impact
                         p.bold= campaign.description
                         p= campaign.description
                         p= campaign.description
                         p= campaign.description
-        section.
+                        br
+                        br
+                        br
+                        br
+                        img(src='/static/images/signature.png')
+    section.site-section-similar
+        .container
+            h3.site-section--subtitle.bold Similar projects
+            .text-center
+                if similarCampaigns
+                    each campaign in similarCampaigns
+                        +campaign(campaign)
+            h4.site-section--subtitle.text-center.bold Discover other categories
+            div
+                +categoriesList()

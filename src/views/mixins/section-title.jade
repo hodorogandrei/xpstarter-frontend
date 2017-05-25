@@ -1,4 +1,4 @@
-mixin sectionTitle(categoryName, path)
+mixin sectionTitle(categoryName, path, searchQuery, queryParams)
     - var categoryIcons = {}
     - categoryIcons['SPORTS'] = 'mdi-bike'
     - categoryIcons['PARKS'] = 'mdi-leaf'
@@ -6,7 +6,6 @@ mixin sectionTitle(categoryName, path)
     - categoryIcons['BUILDINGS'] = 'mdi-home'
     - categoryIcons['FOOD'] = 'mdi-food-apple'
     - categoryIcons['INFRASTRUCTURE'] = 'mdi-car'
-
     h1.site-section--title(class=categoryName)
         if path == '/campaigns/'
             for item, colorClass in categoryIcons
@@ -14,12 +13,27 @@ mixin sectionTitle(categoryName, path)
             br
             | all categories
         else if path.indexOf('/search/') == 0
-            for item, colorClass in categoryIcons
-                    span.mdi(class="#{item} #{colorClass}") &nbsp;
+            span.mdi.mdi-magnify &nbsp;
             br
-            | search results
+            | search results for "#{searchQuery}"
         else
             span.mdi(class=categoryIcons[categoryName])
             br
             | #{campaigns[0].category}
+    .row
+        .col-md-6.col-xs-12.text-right
+            | Campaigns per page: &nbsp; &nbsp;
+            select.selectpicker(class=categoryName, data-type="select-perpage")
+                option(value="6" selected=(queryParams.size == '6')) 6
+                option(value="12" selected=(queryParams.size == '12')) 12
+                option(value="24" selected=(queryParams.size == '24')) 24
 
+        .col-md-6.col-xs-12
+            | Sort by: &nbsp; &nbsp;
+            select.selectpicker(class=categoryName, data-type="select-sort")
+                option(value="startedOn" selected=(queryParams.sort == 'startedOn')) Date started
+                option(value="expiresOn" selected=(queryParams.sort == 'expiresOn')) Date finishes
+                option(value="target" selected=(queryParams.sort == 'target')) Target amount
+                option(value="current" selected=(queryParams.sort == 'current')) Current amount
+                option(value="percentage" selected=(queryParams.sort == 'percentage')) Percentage pledged
+                option(value="likeCount" selected=(queryParams.sort == 'likeCount')) Like count

@@ -19,6 +19,17 @@ var express = require('express'),
 		'FOOD': 'food',
 		'INFRASTRUCTURE': 'infrastructure'
 	};
+
+var linkifyCampaign = function(responseObject, req) {
+	for (var i = 0; i < responseObject._embedded.campaigns.length; i++) {
+  		var urlLink = responseObject._embedded.campaigns[i]._links.self.href;
+      	urlLink = urlLink.substr(urlLink.lastIndexOf('/') + 1);
+      	responseObject._embedded.campaigns[i].campaignLink = req.protocol + '://' + req.get('host') + '/campaigns/' + categoryMappingSecond[responseObject._embedded.campaigns[i].category] + '/' + urlLink;
+  	}
+
+  	return responseObject;
+}
+
 /* GET campaign pages. */
 
 // Campaigns from root or one category
@@ -52,19 +63,15 @@ router.get('/:category?', function(req, res, next) {
 
 	najax({ url: url, type: 'GET' }).success(function(responseObject) {
       	responseObject = JSON.parse(responseObject);
-
-      	for (var i = 0; i < responseObject._embedded.campaigns.length; i++) {
-      		var urlLink = responseObject._embedded.campaigns[i]._links.self.href;
-	      	urlLink = urlLink.substr(urlLink.lastIndexOf('/') + 1);
-	      	responseObject._embedded.campaigns[i].campaignLink = req.protocol + '://' + req.get('host') + '/campaigns/' + categoryMappingSecond[responseObject._embedded.campaigns[i].category] + '/' + urlLink;
-      	}
+      	linkifyCampaign(responseObject, req);
 
 		res.render('campaigns', {
 			pageTitle: title,
 			campaigns: responseObject._embedded.campaigns,
 			path: req.baseUrl + req.path,
 			currentPage: parseInt(queryParams.page, 10),
-			totalPages: parseInt(responseObject.page.totalPages, 10)
+			totalPages: parseInt(responseObject.page.totalPages, 10),
+			queryParams: req.query
 		});
 	});
 });
@@ -74,33 +81,57 @@ router.get('/:category/:campaignId', function(req, res, next) {
 	var queryParams = req.query,
     	title = 'XPress Starter - ',
     	url = endpointBase + '/campaigns/' + req.params.campaignId,
-    	urlDonations = endpointBase + '/donations/search/findByCampaignId?campaignid=' + req.params.campaignId;
+    	urlDonations = endpointBase + '/donations/search/findByCampaignId?campaignid=' + req.params.campaignId,
+    	campaignCategory;
 
     async.series([
-    		function(callback) {
+    	function(callback) {
+			najax({ url: url, type: 'GET'})
+			.success(function(responseObject) {
+				responseObject = JSON.parse(responseObject);
+				campaignCategory = responseObject.category;
+				callback(null, campaignCategory);
+			});
+    	}
+	], function(err, results) {
+		campaignCategory = results[0];
+		var urlSimilar = endpointBase + '/campaigns/search/findByCategory?category=' + campaignCategory + '&size=3&page=2';
+
+	    async.series([
+			function(callback) {
 				najax({ url: url, type: 'GET' })
 				.success(function(responseObject) {
 		      		responseObject = JSON.parse(responseObject);
 		      		title = title + responseObject.name;
 		      		callback(null, responseObject);
 		      	});
-    		},
-    		function(callback) {
-    			najax({ url: urlDonations, type: 'GET' })
+			},
+			function(callback) {
+				najax({ url: urlDonations, type: 'GET' })
 				.success(function(responseObject) {
 		      		responseObject = JSON.parse(responseObject);
 		      		callback(null, responseObject);
 		      	});
-    		}
+			}
+			,
+			function(callback) {
+				najax({ url: urlSimilar, type: 'GET' })
+				.success(function(responseObject) {
+					responseObject = JSON.parse(responseObject);
+					callback(null, responseObject);
+				});
+			}
 		], function(err, results) {
+			console.log(JSON.stringify(results[1]._embedded.donations));
 			res.render('campaign', {
 				pageTitle: title,
 				campaign: results[0],
-				usersDonated: results[1]._embedded.donations
+				usersDonated: results[1]._embedded.donations,
+				similarCampaigns: results[2]._embedded.campaigns,
+				queryParams: req.query
 			});
 		});
-
-
+	});
 });
 
 module.exports = router;

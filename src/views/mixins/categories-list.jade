@@ -1,0 +1,18 @@
+mixin categoriesList(current, all)
+    - var categories = {}
+    - categories['sports-and-play'] = { 'cssClass': 'SPORTS', 'title' : 'Sports &amp; Play', 'icon' : 'mdi-bike' }
+    - categories['parks-and-gardens'] = { 'cssClass': 'PARKS', 'title' : 'Parks &amp; Gardens', 'icon' : 'mdi-leaf' }
+    - categories['arts-and-culture'] = { 'cssClass': 'ARTS', 'title' : 'Arts &amp; Culture', 'icon' : 'mdi-brush' }
+    - categories['buildings'] = { 'cssClass': 'BUILDINGS', 'title' : 'Buildings', 'icon' : 'mdi-home' }
+    - categories['food'] = { 'cssClass': 'FOOD', 'title' : 'Food &amp; Farming', 'icon' : 'mdi-food-apple' }
+    - categories['infrastructure'] = { 'cssClass': 'INFRASTRUCTURE', 'title' : 'Insfrastructure', 'icon' : 'mdi-car' }
+    ul.site-categorylist
+        for item, path in categories
+            if current && "/campaigns/" + path == current
+                a.item(class=item.cssClass, href="/campaigns").active
+                    span.mdi.mdi-arrow-up &nbsp;
+                    | show all
+            else
+                a.item(class=item.cssClass, href="/campaigns/" + path)
+                    span.mdi(class=item.icon) &nbsp;
+                    | !{item.title}

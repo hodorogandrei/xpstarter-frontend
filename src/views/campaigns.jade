@@ -19,20 +19,24 @@ block content
                 span.normal 10.436 / 12.500 GBP
             h4 by Andrei Hodorog
     +categoriesNav(path)
-    .container.text-center
-        if campaigns
-            section.text-center
+
+    if campaigns
+        section.site-section(style="border-top: 0")
+            .container.text-center
                 #custom-search-input
                     .input-group.col-md-12
-                        input.search-query.form-control(type='text', placeholder='Search')
+                        input.search-query.form-control(type='text', placeholder='Search', data-type="search-campaigns")
                         span.input-group-btn
                             button.btn.btn-danger(type='button', data-button="search-button")
                                 span.mdi.mdi-magnify
+                        .outputbox(class=campaigns[0].category)
 
-            section
-                +sectionTitle(campaigns[0].category, path)
+        section.site-section
+            +sectionTitle(campaigns[0].category, path, searchQuery, queryParams)
+        section
+            .container.text-center
                 .site--itemlist
                     each campaign in campaigns
                         +campaign(campaign)
 
-            +pagination(currentPage, totalPages, path)
+                +pagination(currentPage, totalPages, path, queryParams)
