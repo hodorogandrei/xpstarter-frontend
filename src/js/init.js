@@ -7,7 +7,7 @@ var init = (function() {
     }
 
     if(helpers.getPageName() === 'statistics') {
-      stats.initGraph();
+      stats.initGraphs();
     }
   };
 
